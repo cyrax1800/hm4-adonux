@@ -1,0 +1,26 @@
+.toggle-custom {
+  position: absolute !important;
+  top: 0;
+  right: 0;
+}
+.toggle-custom[aria-expanded='true'] .glyphicon-menu-down:before {
+  content: "\e260";
+}
+
+.nav.collapse.nested{
+  padding-left: 10%;
+}
+
+.smalldetail{
+    -webkit-box-shadow: 0px 15px 31px -22px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 15px 31px -22px rgba(0,0,0,0.75);
+    box-shadow: 0px 15px 31px -22px rgba(0,0,0,0.75);
+    padding:15px;
+    margin:0;
+}
+.jobdesc{
+    -webkit-box-shadow: 0px 16px 36px -22px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 16px 36px -22px rgba(0,0,0,0.75);
+    box-shadow: 0px 16px 36px -22px rgba(0,0,0,0.75);
+    border:1px solid rgba(0,0,0,0.1);
+}
