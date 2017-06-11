@@ -3,7 +3,7 @@
 class ItemController {
 
   * item (request, response) {
-    retrun response.send("asd")
+    return response.send("asd")
   }
 }
 

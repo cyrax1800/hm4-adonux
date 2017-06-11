@@ -1,26 +1,21 @@
-.toggle-custom {
-  position: absolute !important;
-  top: 0;
-  right: 0;
+ul.breadcrumb{
+  outline-style: none;
+  box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
+  display: block;
+  padding: 0.75rem;
+  background: #fff;
 }
-.toggle-custom[aria-expanded='true'] .glyphicon-menu-down:before {
-  content: "\e260";
+ul.breadcrumb li{
+  display: inline-block;
 }
-
-.nav.collapse.nested{
-  padding-left: 10%;
+ul.breadcrumb li.is-active{
+  color: #848484;
 }
-
-.smalldetail{
-    -webkit-box-shadow: 0px 15px 31px -22px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 15px 31px -22px rgba(0,0,0,0.75);
-    box-shadow: 0px 15px 31px -22px rgba(0,0,0,0.75);
-    padding:15px;
-    margin:0;
+ul.breadcrumb>li+li:before {
+  padding: 0 5px;
+  color: #848484;
+  content: "/\00a0";
 }
-.jobdesc{
-    -webkit-box-shadow: 0px 16px 36px -22px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 16px 36px -22px rgba(0,0,0,0.75);
-    box-shadow: 0px 16px 36px -22px rgba(0,0,0,0.75);
-    border:1px solid rgba(0,0,0,0.1);
+ul.breadcrumb li a:hover{
+  text-decoration: underline;
 }

@@ -1,23 +1,32 @@
 <template>
   <div class="container">
-    <h1>Origaming - Home Makeover 4 data</h1>
-    <hr>
-    <div class="row">
-      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-        <nav class="jobdesc">
-          <ul class="nav">
+    <br>
+    <nav class="nav has-shadow">
+      <div class="nav-left">
+        <div class="container">
+          <h1 class="title is-3">Origaming - Home Makeover 4 data</h1>
+        </div>
+      </div>
+    </nav>
+    <br>
+    <div class="columns">
+      <div class="column is-2">
+        <aside class="menu">
+          <p class="menu-label">Menu</p>
+          <ul class="menu-list">
+            <li><nuxt-link to="/playfab">Playfab</nuxt-link></li>
             <li><nuxt-link to="/backendless">Backendless</nuxt-link></li>
-            <li><a>Items</a><a class="toggle-custom" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false"><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a>
-              <ul class="nav collapse nested" id="submenu1" role="menu" aria-labelledby="btn-1">
-                <li><nuxt-link to="/item-material">Items Material</nuxt-link></li>
-                <li><nuxt-link to="/item-colelction">Items Collection</nuxt-link></li>
-              </ul>
-            </li>
             <li><nuxt-link to="/quest">Quest</nuxt-link></li>
           </ul>
-        </nav>
+          <p class="menu-label">Items</p>
+          <ul class="menu-list">
+            <li><nuxt-link to="/item-material">Items Material</nuxt-link></li>
+            <li><nuxt-link to="/item-colelction">Items Collection</nuxt-link></li>
+          </ul>
+          
+        </aside>
       </div>
-      <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+      <div class="column">
         <nuxt/>
       </div>
     </div>

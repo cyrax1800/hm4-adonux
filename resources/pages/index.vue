@@ -1,11 +1,16 @@
 <template>
   <div>
-    <button type="button" class="btn btn-primary" @click="navigateTo('/item')">
+    <!-- <button type="button" class="btn btn-primary" @click="navigateTo('/item')">
       item
     </button>
     <nuxt-link class="button" to="/item">
         Item
-      </nuxt-link>  
+    </nuxt-link>   -->
+    <h3 class="title is-3">Welcome to origaming hm4 data helper</h3>
+    <hr>
+    <pre>
+      Please navigate from side menu to use the tool
+    </pre>
   </div>
 </template>
 

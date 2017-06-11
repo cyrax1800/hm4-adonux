@@ -17,14 +17,18 @@
 
 const Route = use('Route')
 
+Route.group('playfab',function(){
+  Route.get('/login','API/PlayfabController.loginCustomID')
+}).prefix('api/playfab')
+
 Route.group('backendless',function(){
-  Route.get('/file','API/BackendlessController.file')
+  Route.get('/file/*','API/BackendlessController.file')
+  Route.post('/file/download','API/BackendlessController.download')
   Route.get('/test','API/BackendlessController.test')
 }).prefix('api/backendless')
 
 Route.group('itemCollection',function(){
   Route.get('/','API/ItemController.item')
 }).prefix('api/item')
-  
 
 Route.any('*', 'NuxtController.render')

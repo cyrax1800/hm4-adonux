@@ -34,7 +34,7 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: ['~assets/css/main.css','bootstrap/dist/css/bootstrap.css'],
+  css: ['~assets/css/main.css', '~assets/css/bulma.css','~assets/css/font-awesome.css'],
   /*
   ** Customize the progress-bar color
   */
@@ -44,7 +44,7 @@ module.exports = {
   */
   srcDir: resolve(__dirname, '../', 'resources'),
   build:{
-    vendor:['backendless','jquery', 'bootstrap','axios'],
+    vendor:['backendless','jquery','axios','jszip'],
     plugins: [
       // set shortcuts as global for bootstrap
       new webpack.ProvidePlugin({
