@@ -11,9 +11,11 @@ class BackendlessController {
     var path = request.param(0)
     var getQuery = request.get()
     var queryString = (getQuery.key)?getQuery.key:""
+    console.log(path);
     Backendless.Files.listing( "/media/" + path, "*"+ queryString+"*", false )
     .then(function(result){
-      result = result.data.map(function (obj) {
+      var data = {};
+      data.files = result.data.map(function (obj) {
         obj.isFile = true;
         obj.checked = false;
         if(!obj.name.endsWith(".txt")){
@@ -21,7 +23,8 @@ class BackendlessController {
         }
         return obj;
       })
-      response.json(result);
+      data.path = path
+      response.json(data);
     })
     .catch(function(result)
     {
@@ -32,19 +35,51 @@ class BackendlessController {
   * download(request,response){
     var data = request.post()
     var selectedFolderOrFile = data.data.selectedData;
-    var zip = new JSZip();
-    // zip.generateAsync({type:"blob"}).then(function (base64) {
-    //     location.href="data:application/zip;base64," + base64;
-    // });
-    // zip
-    //   .generateNodeStream({type:'nodebuffer',streamFiles:true})
-    //   .pipe(fs.createWriteStream('out.zip'))
-    //   .on('finish', function () {
-    //       // JSZip generates a readable stream with a "end" event,
-    //       // but is piped here in a writable stream which emits a "finish" event.
-    //       console.log("out.zip written.");
-    //   });
-    response.json({result:"success"});
+    var allPublicURL = [];
+    var totalFetch = 0;
+
+    function sendData(){
+      console.log(allPublicURL);
+    
+      response.json({result:allPublicURL});
+    }
+
+    function getFile(folder){
+      Backendless.Files.listing( folder.url, "*", false )
+      .then(function (result){
+        var tmpObj = {};
+        tmpObj.files = result.data.map(function (obj) {
+          obj.isFile = true;
+          obj.checked = false;
+          if(!obj.name.endsWith(".txt")){
+            obj.isFile = false;
+          }
+          return obj;
+        })
+        totalFetch--;
+        loopResult(tmpObj.files);
+      })
+      .catch(function(error){
+        console.log(error);
+      })
+    }
+
+    function loopResult(dataFile){
+      var hasFetch = false;
+      for(var i = 0; i < dataFile.length; i++){
+        if(dataFile[i].isFile == false){
+          totalFetch++;
+          getFile(dataFile[i])
+          hasFetch = true;
+        }else{
+          allPublicURL.push(dataFile[i].publicUrl)
+        }
+      }
+      if(!hasFetch && (totalFetch == 0))sendData();
+    }
+
+    loopResult(selectedFolderOrFile);
+    
   }
 
   * test (request, response) {

@@ -24,11 +24,11 @@ module.exports = {
       }
     ],
     link: [
-      {
+      /*{
         rel: 'icon',
         type: 'image/x-icon',
         href: 'favicon.ico'
-      }
+      }*/
     ]
   },
   /*
@@ -44,7 +44,7 @@ module.exports = {
   */
   srcDir: resolve(__dirname, '../', 'resources'),
   build:{
-    vendor:['backendless','jquery','axios','jszip'],
+    vendor:['backendless','jquery','axios','jszip','file-saver'],
     plugins: [
       // set shortcuts as global for bootstrap
       new webpack.ProvidePlugin({

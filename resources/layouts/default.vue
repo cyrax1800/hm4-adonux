@@ -15,7 +15,7 @@
           <p class="menu-label">Menu</p>
           <ul class="menu-list">
             <li><nuxt-link to="/playfab">Playfab</nuxt-link></li>
-            <li><nuxt-link to="/backendless">Backendless</nuxt-link></li>
+            <li><nuxt-link to="/backendless/">Backendless</nuxt-link></li>
             <li><nuxt-link to="/quest">Quest</nuxt-link></li>
           </ul>
           <p class="menu-label">Items</p>

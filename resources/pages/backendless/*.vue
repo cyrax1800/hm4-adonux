@@ -71,16 +71,33 @@
   </div>
 </template>
 <script>
-  import axios,{CancelToken} from '~plugins/axios'
+  import axios,{CancelToken,axiosLib} from '~plugins/axios'
+  import JSZip from 'jszip'
+  import FileSaver from 'file-saver'
 
   export default {
     async asyncData (context) {
       return {
-        files: await axios.get("backendless/file/savegame backup")
+        files: await axios.get("backendless/file/savegame backup/" + context.params[0],{params:context.query})
       }
     },
     mounted() {
-      this.files = this.files.data;
+      this.$nextTick(function () {
+        this.files = this.files.data.files;
+      })
+    },
+    updated(){
+      // console.log(this.files)
+      if(this.files && this.files.data && this.files.data.path){
+        if("savegame%20backup/" == this.files.data.path){
+          this.path = [];
+        }else {
+          var tmpArr = this.files.data.path.replace('%20'," ").split("/");
+          this.path = tmpArr;
+        }
+      }
+      if(this.files && this.files.data)
+        this.files = this.files.data.files;
     },
     methods:{
       navigateTo:function(nav){
@@ -88,30 +105,11 @@
       },
       goto:function (foldername) {
         var self = this;
-        this.query = "";
-        if(this.path.length == 0){
-          this.path.push("savegame backup")
-        }
-        if(foldername !== "savegame backup"){
-          if(this.cancel){
-            this.cancel();
-            if(this.path.pop()==="savegame backup"){
-              this.path.push("savegame backup")
-            }
-          }
-          this.path.push(foldername)
-        }
-
-        axios.get("backendless/file/" + this.path.join("/"),{
-          cancelToken: new CancelToken(function executor(c) {self.cancel = c;})})
-        .then(function(result){
-          console.log(result)
-          self.cancel = null;
-          self.files = result.data;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+        var tmpPath = this.path.slice();
+        tmpPath.splice(0,1);
+        if(foldername != "savegame backup")
+          tmpPath.push(foldername)
+        this.navigateTo("/backendless/" + tmpPath.join("/").replace(" ","+"));
       },
       gotoFromBreadcumb:function(name){
         while(this.path[this.path.length - 1] !== name){
@@ -125,21 +123,9 @@
       },
       search:function(){
         var self = this;
-        if(this.path.length == 0){
-          this.path.push("savegame backup")
-        }
-        axios.get("backendless/file/" + this.path.join("/"),{
-          cancelToken: new CancelToken(function executor(c) {self.cancel = c;}),
-          params:{key:self.query,pageSize:self.pageSize,offset:self.offset}
-        })
-        .then(function(result){
-          console.log(result)
-          self.cancel = null;
-          self.files = result.data;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+        var queryParam = "";
+        queryParam = "key="+ this.query;
+        this.navigateTo("/backendless/?"+queryParam);
       },
       toggleCheck:function(file){
         file.checked = !file.checked;
@@ -148,18 +134,35 @@
         var self = this;
         this.selectedData = [];
         for(var i = 0; i< this.files.length;i++){
-          console.log(this.files[i].checked);
           if(this.files[i].checked == true){
             this.selectedData.push(this.files[i]);
           }
         }
-        console.log(this.selectedData);
         axios.post("backendless/file/download",{
           cancelToken: new CancelToken(function executor(c) {self.cancel = c;}),
           data:{selectedData:self.selectedData}
         })
         .then(function(result){
-          console.log(result)
+          var allPromise = [];
+          for (var i = 0; i< result.data.result.length; i++){
+            console.log(result.data.result[i])
+            allPromise.push(axiosLib.get(result.data.result[i]))
+          }
+          axiosLib.all(allPromise)
+          .then(axiosLib.spread(function (...textResult) {
+            var zip = new JSZip();
+            for(var i = 0; i < textResult.length; i++){
+              var data = textResult[i].data;
+              var url = textResult[i].config.url;
+              var folder = url.substring(url.indexOf("savegame+backup") + 16, url.lastIndexOf("/")).replace("+"," ");
+              var mainFolder = folder.split("/")[0];
+              var fileName = url.substring(url.lastIndexOf("/")+1)
+              zip.folder(folder).file(fileName, mainFolder);
+            }
+            zip.generateAsync({type:"blob"}).then(function (blob) {
+              FileSaver.saveAs(blob, mainFolder+ ".zip");
+            });
+          }));
         })
         .catch(function (error) {
           console.log(error);

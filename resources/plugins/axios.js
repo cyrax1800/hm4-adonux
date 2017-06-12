@@ -10,3 +10,4 @@ let instance = axios.create({
 
 export default instance
 export var CancelToken = axios.CancelToken;
+export var axiosLib = axios;
