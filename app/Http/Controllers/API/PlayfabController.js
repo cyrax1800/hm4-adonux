@@ -22,6 +22,20 @@ class PlayfabController {
       }
     });    
   }
+
+  * getUserInventory(request, response){
+    var playfabId = request.get().playfabId;
+    console.log(playfabId);
+    PlayFabServer.GetUserInventory({
+      "PlayFabId": playfabId
+    }, function(error,result){
+      if(result !== null){
+        response.json(result)
+      }else{
+        response.json(error)
+      }
+    })
+  }
 }
 
 module.exports = new PlayfabController()

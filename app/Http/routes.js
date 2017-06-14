@@ -19,6 +19,7 @@ const Route = use('Route')
 
 Route.group('playfab',function(){
   Route.get('/login','API/PlayfabController.loginCustomID')
+  Route.get('/getUserInventory','API/PlayfabController.getUserInventory')
 }).prefix('api/playfab')
 
 Route.group('backendless',function(){
