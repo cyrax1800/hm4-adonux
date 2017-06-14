@@ -17,7 +17,7 @@ class NuxtController {
       this.nuxt.build()
     }
 
-    Backendless.initApp('0C6AD465-D1A4-F8DA-FFE7-6A9F6AAB8700','8BB3C425-F58E-A830-FF07-FA90BF75F400','v1');
+    Backendless.initApp(Env.get('BACKENDLESS_APP_ID'),Env.get('BACKENDLESS_SECRET'),'v1');
     Backendless.enablePromises();
 
     PlayFab.settings.titleId = Env.get('PLAYFAB_TITLE_ID');

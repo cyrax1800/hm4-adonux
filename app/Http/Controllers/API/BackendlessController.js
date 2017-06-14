@@ -39,7 +39,7 @@ class BackendlessController {
     var totalFetch = 0;
 
     function sendData(){
-      console.log(allPublicURL);
+      // console.log(allPublicURL);
     
       response.json({result:allPublicURL});
     }

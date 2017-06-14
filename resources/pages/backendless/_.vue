@@ -157,7 +157,7 @@
               var folder = url.substring(url.indexOf("savegame+backup") + 16, url.lastIndexOf("/")).replace("+"," ");
               var mainFolder = folder.split("/")[0];
               var fileName = url.substring(url.lastIndexOf("/")+1)
-              zip.folder(folder).file(fileName, mainFolder);
+              zip.folder(folder).file(fileName, data);
             }
             zip.generateAsync({type:"blob"}).then(function (blob) {
               FileSaver.saveAs(blob, mainFolder+ ".zip");
