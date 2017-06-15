@@ -19,3 +19,20 @@ ul.breadcrumb>li+li:before {
 ul.breadcrumb li a:hover{
   text-decoration: underline;
 }
+
+.tag.is-common {
+  background-color: #cecece;
+  color: #000;
+}
+.tag.is-uncommon {
+  background-color: #3273dc;
+  color: #fff;
+}
+.tag.is-rare {
+  background-color: #ffdd57;
+  color: #000;
+}
+.tag.is-epic {
+  background-color: #8B008B;
+  color: #fff;
+}
