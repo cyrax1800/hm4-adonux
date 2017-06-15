@@ -8,12 +8,59 @@
         </div>
       </div>
     </div>
-    
-    <div class="columns">
-      <div class="column">
-        <a class="button is-danger" @click="removeAllPlayerInventory()">Remove All Player Inventory</a>
+
+    <!-- <div v-bind:class="{'is-active':inputSegmentID}" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="message is-danger">
+          <div class="message-header">
+            Warning
+            <button class="delete" @click="hideInputSegmentModal()"></button>
+          </div>
+          <div class="message-body">
+            Using this operation <strong>cannot be restore</strong> again!
+            <div class="columns">
+              <div class="column is-4">
+                <div class="field">
+                  <label class="label">Segment ID</label>
+                  <p class="control">
+                    <input v-model="segmentID" class="input" type="text" placeholder="Enter segmentID">
+                  </p>
+                </div>
+              </div>
+              <div class="column is-2">
+                <div class="field">
+                  <label class="label">&nbsp;</label>
+                  <a class="button is-danger control" @click="removeAllPlayerInventory()">Delete</a>
+                </div>
+              </div>
+              <div class="column">
+                <div class="field">
+                  <label class="label">&nbsp;</label>
+                  <a class="button is-primary control" @click="hideInputSegmentModal()">Cancel</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div v-show="showErrorInfo" class="message is-danger">
+      <div class="message-header">
+        Ooops
+        <button class="delete" @click="hideErrorInfo()"></button>
+      </div>
+      <div class="message-body">
+        <strong>Ooops! </strong> something went wrong.
       </div>
     </div>
+    
+    <!-- <div class="columns">
+      <div class="column">
+        <a class="button is-danger" @click="showInputSegmentModal()">Remove All Player Inventory</a>
+      </div>
+    </div> -->
     <div class="columns">
       <div class="column is-4">
         <div class="field">
@@ -68,7 +115,7 @@
       search:function(){
         var self = this;
         this.isFetchingData = true
-        axios.get("playfab/getUserInventory",{
+        axios.get("playfab/inventory",{
           cancelToken: new CancelToken(function executor(c) {self.cancel = c;}),
           params:{playfabId:self.playfabId}
         })
@@ -80,14 +127,84 @@
         .catch(function(error){
           console.log(error);
           self.isFetchingData = false
+          self.showErrorInfo = true;
         })
+      },
+      revoke:function(inventory){
+        var self = this;
+        this.isFetchingData = true
+        axios.delete("playfab/inventory",{
+          cancelToken: new CancelToken(function executor(c) {self.cancel = c;}),
+          data:{playfabId:self.playfabId, itemInstance:[inventory.ItemInstanceId]}
+        })
+        .then(function(result){
+          console.log(result);
+          self.inventories.splice(self.inventories.indexOf(inventory),1);
+          self.isFetchingData = false
+        })
+        .catch(function(error){
+          console.log(error);
+          self.isFetchingData = false
+          self.showErrorInfo = true;
+        })
+      },
+      revokeAll:function(){
+        var self = this;
+        this.isFetchingData = true
+        var allItemInstance = this.inventories.map(function(item){return item.ItemInstanceId});
+        axios.delete("playfab/inventory",{
+          cancelToken: new CancelToken(function executor(c) {self.cancel = c;}),
+          data:{playfabId:self.playfabId, itemInstance:allItemInstance}
+        })
+        .then(function(result){
+          console.log(result);
+          self.inventories = [];
+          self.isFetchingData = false
+        })
+        .catch(function(error){
+          console.log(error);
+          self.isFetchingData = false
+          self.showErrorInfo = true;
+        })
+      },
+      /*showInputSegmentModal:function(){
+        this.inputSegmentID = true;
+      },
+      hideInputSegmentModal:function(){
+        this.inputSegmentID = false;
+        this.segmentID = "";
+      },
+      removeAllPlayerInventory:function(){
+        var self = this;
+        this.isFetchingData = true
+        this.inputSegmentID = false;
+        axios.delete("playfab/inventory/all",{
+          cancelToken: new CancelToken(function executor(c) {self.cancel = c;}),
+          data:{segmentId:self.segmentID}
+        })
+        .then(function(result){
+          console.log(result);
+          self.isFetchingData = false
+        })
+        .catch(function(error){
+          console.log(error);
+          self.isFetchingData = false
+          self.showErrorInfo = true;
+        })
+        self.segmentID = "";
+      },*/
+      hideErrorInfo:function(){
+        this.showErrorInfo = false;
       }
     },
     data(){
       return{
         playfabId:"",
         inventories:[],
-        isFetchingData:false
+        isFetchingData:false,
+        inputSegmentID:false,
+        segmentID:"",
+        showErrorInfo:false
       }
     }
   }
