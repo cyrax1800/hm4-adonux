@@ -45,6 +45,9 @@
       </div>
     </div>
     <div class="columns">
+      <div class="column">
+        <nuxt-link class="button is-primary" to="/item-material/add">Add Item</nuxt-link>
+      </div>
       <div class="column is-narrow">
         <span class="tag is-common">Common</span>
       </div>

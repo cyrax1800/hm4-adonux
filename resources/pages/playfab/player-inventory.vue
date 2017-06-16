@@ -111,28 +111,31 @@
   import axios,{CancelToken,axiosLib} from '~plugins/axios'
 
   export default {
+    mounted:function(){
+      this.loading = $nuxt.$parent.$parent.$loading
+    },
     methods:{
       search:function(){
         var self = this;
-        this.isFetchingData = true
+        this.loading.start();
         axios.get("playfab/inventory",{
           cancelToken: new CancelToken(function executor(c) {self.cancel = c;}),
           params:{playfabId:self.playfabId}
         })
         .then(function(result){
           console.log(result);
-          self.isFetchingData = false
           self.inventories = result.data.data.Inventory;
+          self.loading.finish();
         })
         .catch(function(error){
           console.log(error);
-          self.isFetchingData = false
           self.showErrorInfo = true;
+          self.loading.finish();
         })
       },
       revoke:function(inventory){
         var self = this;
-        this.isFetchingData = true
+        this.loading.start();
         axios.delete("playfab/inventory",{
           cancelToken: new CancelToken(function executor(c) {self.cancel = c;}),
           data:{playfabId:self.playfabId, itemInstance:[inventory.ItemInstanceId]}
@@ -140,17 +143,17 @@
         .then(function(result){
           console.log(result);
           self.inventories.splice(self.inventories.indexOf(inventory),1);
-          self.isFetchingData = false
+          self.loading.finish();
         })
         .catch(function(error){
           console.log(error);
-          self.isFetchingData = false
           self.showErrorInfo = true;
+          self.loading.finish();
         })
       },
       revokeAll:function(){
         var self = this;
-        this.isFetchingData = true
+        this.loading.start();
         var allItemInstance = this.inventories.map(function(item){return item.ItemInstanceId});
         axios.delete("playfab/inventory",{
           cancelToken: new CancelToken(function executor(c) {self.cancel = c;}),
@@ -159,12 +162,12 @@
         .then(function(result){
           console.log(result);
           self.inventories = [];
-          self.isFetchingData = false
+          self.loading.finish();
         })
         .catch(function(error){
           console.log(error);
           self.isFetchingData = false
-          self.showErrorInfo = true;
+          self.loading.finish();
         })
       },
       /*showInputSegmentModal:function(){

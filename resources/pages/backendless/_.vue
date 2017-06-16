@@ -84,6 +84,7 @@
     mounted() {
       this.$nextTick(function () {
         this.files = this.files.data.files;
+        this.loading = $nuxt.$parent.$parent.$loading;
       })
     },
     updated(){
@@ -132,6 +133,7 @@
       },
       download:function(){
         var self = this;
+        this.loading.start();
         this.selectedData = [];
         for(var i = 0; i< this.files.length;i++){
           if(this.files[i].checked == true){
@@ -161,11 +163,13 @@
             }
             zip.generateAsync({type:"blob"}).then(function (blob) {
               FileSaver.saveAs(blob, mainFolder+ ".zip");
+              self.loading.finish();
             });
           }));
         })
         .catch(function (error) {
           console.log(error);
+          self.loading.finish();
         });
       }
     },

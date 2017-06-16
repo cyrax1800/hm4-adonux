@@ -36,3 +36,27 @@ ul.breadcrumb li a:hover{
   background-color: #8B008B;
   color: #fff;
 }
+
+.inputfile-1 + label {
+    color: #f1e5e6;
+    background-color: #00d1b2;
+}
+
+.inputfile + label {
+    max-width: 80%;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    /*padding: 0.625rem 1.25rem;*/
+    position: relative;
+    line-height: 1.5;
+    padding-bottom: calc(0.375em - 1px);
+    padding-left: calc(0.625em - 1px);
+    padding-right: calc(0.625em - 1px);
+    padding-top: calc(0.375em - 1px);
+    border: 1px solid transparent;
+    border-radius: 3px;
+}

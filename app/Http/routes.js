@@ -19,9 +19,9 @@ const Route = use('Route')
 
 Route.group('playfab',function(){
   Route.get('/login','API/PlayfabController.loginCustomID')
-  Route.get('/inventory','API/Playfab/playfabInventoryController.getUserInventory')
-  Route.delete('/inventory','API/Playfab/playfabInventoryController.revokeAnItem')
-  Route.delete('/inventory/all','API/Playfab/playfabInventoryController.revokeAllItemInSegment')
+  Route.get('/inventory','API/playfab/playfabInventoryController.getUserInventory')
+  Route.delete('/inventory','API/playfab/playfabInventoryController.revokeAnItem')
+  Route.delete('/inventory/all','API/playfab/playfabInventoryController.revokeAllItemInSegment')
 }).prefix('api/playfab')
 
 Route.group('backendless',function(){
