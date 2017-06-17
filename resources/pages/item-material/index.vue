@@ -8,7 +8,7 @@
         <div class="field">
           <label class="label">ItemName</label>
           <p class="control">
-            <input v-model="itemName" class="input" type="text" placeholder="Enter itemName" v-on:keyup="queryFilter">
+            <input v-model="itemName" class="input" type="text" placeholder="Enter item name" v-on:keyup="queryFilter">
           </p>
         </div>
       </div>

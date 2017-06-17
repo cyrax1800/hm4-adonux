@@ -37,6 +37,28 @@ ul.breadcrumb li a:hover{
   color: #fff;
 }
 
+.text.is-common {
+  color: #cecece;
+  font-weight: bold;
+}
+.text.is-uncommon {
+  color: #3273dc;
+  font-weight: bold;
+}
+.text.is-rare {
+  color: #ffdd57;
+  font-weight: bold;
+}
+.text.is-epic {
+  color: #8B008B;
+  font-weight: bold;
+}
+
+.inputfile-1 + label {
+    color: #f1e5e6;
+    background-color: #00d1b2;
+}
+
 .inputfile-1 + label {
     color: #f1e5e6;
     background-color: #00d1b2;

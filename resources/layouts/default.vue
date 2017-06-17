@@ -25,7 +25,7 @@
           <p class="menu-label">Items</p>
           <ul class="menu-list">
             <li><nuxt-link to="/item-material">Items Material</nuxt-link></li>
-            <li><nuxt-link to="/item-colelction">Items Collection</nuxt-link></li>
+            <li><nuxt-link to="/item-collection">Items Collection</nuxt-link></li>
           </ul>
           
         </aside>
