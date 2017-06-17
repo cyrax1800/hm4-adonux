@@ -30,10 +30,14 @@ Route.group('backendless',function(){
   Route.get('/test','API/BackendlessController.test')
 }).prefix('api/backendless')
 
-Route.group('itemCollection',function(){
+Route.group('itemMaterial',function(){
   Route.get('/','API/ItemController.item')
   Route.post('/add','API/ItemController.store')
 }).prefix('api/item')
+
+Route.group('itemCollection',function(){
+  Route.get('/','API/ItemCollectionController.index')
+}).prefix('api/itemcollection')
 
 Route.post('api/image', 'API/ImageController.index');
 

@@ -7,8 +7,16 @@ class Item extends Lucid {
     return 'item'
   }
 
+  static get hidden () {
+    return ['item_rarity_id',"_pivot_item_collection_id","_pivot_item_id"]
+  }
+
   itemRarity(){
     return this.belongsTo('App/Model/ItemRarity')
+  }
+
+  itemCollection(){
+    return this.belongsToMany('App/Model/ItemCollection')
   }
 }
 
