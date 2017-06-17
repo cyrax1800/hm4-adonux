@@ -13,6 +13,17 @@ class ItemController {
     })
     return response.send(items)
   }
+
+  * store(request,response){
+    var data = request.post().data;
+    yield Item.create({'name' : data.name,
+                       'pic_url' :  data.imgPath,
+                       'item_rarity_id' : data.rarity})
+
+    return response.status(201).json({'status' : 'success'});
+  }
+  * update (request, response) {
+    }
 }
 
 module.exports = new ItemController()

@@ -52,7 +52,7 @@
       <table class="table is-bordered">
         <thead>
           <tr>
-            <th><input type="checkbox"></th>
+            <th class="is-narrow"><input type="checkbox"></th>
             <th>Name</th>
           </tr>
         </thead>

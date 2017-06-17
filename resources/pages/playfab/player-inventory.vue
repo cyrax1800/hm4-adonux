@@ -84,11 +84,11 @@
       <table class="table is-bordered">
         <thead>
           <tr>
-            <th>InstanceID</th>
+            <th class="is-narrow">InstanceID</th>
             <th>ID</th>
             <th>Name</th>
-            <th>Total</th>
-            <th><a v-show="inventories.length > 0" class="button is-danger control" @click="revokeAll()">Revoke All</a></th>
+            <th class="is-narrow">Total</th>
+            <th class="is-narrow"><a v-show="inventories.length > 0" class="button is-danger control" @click="revokeAll()">Revoke All</a></th>
           </tr>
         </thead>
         <tbody>
@@ -166,7 +166,6 @@
         })
         .catch(function(error){
           console.log(error);
-          self.isFetchingData = false
           self.loading.finish();
         })
       },

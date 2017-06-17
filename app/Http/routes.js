@@ -32,6 +32,9 @@ Route.group('backendless',function(){
 
 Route.group('itemCollection',function(){
   Route.get('/','API/ItemController.item')
+  Route.post('/add','API/ItemController.store')
 }).prefix('api/item')
+
+Route.post('api/image', 'API/ImageController.index');
 
 Route.any('*', 'NuxtController.render')
