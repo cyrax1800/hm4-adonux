@@ -59,6 +59,13 @@ ul.breadcrumb li a:hover{
     background-color: #00d1b2;
 }
 
+.is-vertical-center{
+  vertical-align: middle !important;
+}
+.is-horizontal-center{
+  text-align: center !important;
+}
+
 .inputfile-1 + label {
     color: #f1e5e6;
     background-color: #00d1b2;

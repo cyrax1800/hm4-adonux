@@ -43,7 +43,7 @@
     </div>
     <div class="columns">
       <div class="column">
-        <nuxt-link class="button is-primary" to="/item-material/add">Add Item</nuxt-link>
+        <nuxt-link to="/item-material/add" class=""><span class="icon fa fa-plus is-vertical-center"></span>Add Item</nuxt-link>
       </div>
       <div class="column is-narrow">
         <span class="tag is-common">Common</span>
@@ -68,14 +68,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in queryItem">
-            <td class="is-narrow">{{item.id}}</td>
-            <td class="is-narrow">
+          <tr v-for="item in queryItem" class="is-vertical-center">
+            <td class="is-narrow is-vertical-center">{{item.id}}</td>
+            <td class="is-narrow is-vertical-center" >
               <!-- <figure class="image "> -->
                 <img :src="getImage(item.pic_url)" alt="">
               <!-- </figure> -->
             </td>
-            <td>{{item.name}}
+            <td class="is-vertical-center">{{item.name}}
               <span class="tag" v-bind:class="{'is-common':item.itemRarity.id == 1,'is-uncommon':item.itemRarity.id == 2,'is-rare':item.itemRarity.id == 3,'is-epic':item.itemRarity.id == 4}">{{toTitleCase(item.itemRarity.name)}}</span>
             </td>
           </tr>
@@ -97,6 +97,10 @@
       var self = this;
       this.$nextTick(function () {
         self.queryItem = self.allItem.data.slice();
+        var data = self.queryItem.map(function(item){
+          return item.name;
+        })
+        console.log(data.toString())
       })
     },
     methods:{

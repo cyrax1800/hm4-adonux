@@ -37,6 +37,7 @@ Route.group('itemMaterial',function(){
 
 Route.group('itemCollection',function(){
   Route.get('/','API/ItemCollectionController.index')
+  Route.post('/add','API/ItemCollectionController.store')
 }).prefix('api/itemcollection')
 
 Route.post('api/image', 'API/ImageController.index');

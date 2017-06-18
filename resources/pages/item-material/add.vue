@@ -34,7 +34,7 @@
                 <label class="label">&nbsp;</label>
                 <p class="control">File: <span>{{filename}}</span></p>
                 <input type="file" id="file-1" class="inputfile inputfile-1 button" style="display: none;" accept="image/*" v-on:change="addImage"/>
-                <label for="file-1"><span>Choose a file</span></label>
+                <label for="file-1"><span><span class="icon fa fa-upload is-vertical-center"></span>Choose a file</span></label>
             </div>
           </div>
         </div>

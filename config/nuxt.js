@@ -34,7 +34,7 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: ['~assets/css/main.css', '~assets/css/bulma.css','~assets/css/font-awesome.css'],
+  css: ['~assets/css/bulma.css','~assets/css/font-awesome.css','~assets/css/main.css'],
   /*
   ** Customize the progress-bar color
   */
